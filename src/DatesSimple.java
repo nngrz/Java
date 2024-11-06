@@ -9,32 +9,23 @@ public class DatesSimple {
                 toy + "/" + tom + "/" + tod);
 //      pack
         int period = 0;
-        int resetFromy = fromy - 2000;
-        int resetToy = toy - 2000;
+        int resetFromy = fromy - 2000; // adjust the fromy to be in range [0, 127]
+        int resetToy = toy - 2000; // adjust the toy to be in range [0, 127]
 
         int packedDate = (resetFromy & 0x7f) << 9 | (fromm & 0x0f) << 5 | (fromd & 0x1f);
-        packedDate <<= 16;
-        packedDate |= (resetToy & 0x7f) << 9 | (tom & 0x0f) << 5 | (tod & 0x1f);
+        packedDate = packedDate << 16;
+        packedDate = packedDate | (resetToy & 0x7f) << 9 | (tom & 0x0f) << 5 | (tod & 0x1f);
         period = packedDate;
         fromy = fromm = fromd = toy = tom = tod = 0;
 
-//      unpack
-        int[] dates = new int[6];
 //      unpack the "from" date
-        dates[0] = (((period >> 16) >> 9) & 0x7f) + 2000;
-        dates[1] = ((period >> 16) >> 5) & 0x0f;
-        dates[2] = ((period >> 16)) & 0x1f;
+        fromy = (((period >> 16) >> 9) & 0x7f) + 2000;
+        fromm = ((period >> 16) >> 5) & 0x0f;
+        fromd = ((period >> 16)) & 0x1f;
 //      unpack the "to" date
-        dates[3] = ((period >> 9) & 0x7f) + 2000;
-        dates[4] = (period >> 5) & 0x0f;
-        dates[5] = (period) & 0x1f;
-
-        fromy = dates[0];
-        fromm = dates[1];
-        fromd = dates[2];
-        toy = dates[3];
-        tom = dates[4];
-        tod = dates[5];
+        toy = ((period >> 9) & 0x7f) + 2000;
+        tom = (period >> 5) & 0x0f;
+        tod = (period) & 0x1f;
 
         System.out.println("**** Reconstructed\n" +
                 "From " + fromy + "/" +
