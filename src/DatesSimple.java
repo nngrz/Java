@@ -36,7 +36,7 @@ public class DatesSimple {
         tom = dates[4];
         tod = dates[5];
 
-       System.out.println("**** Reconstructed\n" +
+        System.out.println("**** Reconstructed\n" +
                             "From " + fromy + "/" +
                             fromm + "/" + fromd + " to " +
                             toy + "/" + tom + "/" + tod);
