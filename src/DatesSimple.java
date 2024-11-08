@@ -23,11 +23,9 @@ public class DatesSimple {
         int packedDate = (resetFromy & 0x7f) << 9 | (fromm & 0x0f) << 5 | (fromd & 0x1f);
 //      shift the packedDate to the left 16 bits to be at higher bits
 /*
-      - What happens after this shift:
+        Because I want to store the "to" date on bits 0-15.
         So far the "from" date is stored on bits 0-15 of packeDate.
-        After left shifting the packedDate by 16 bits, the "from" date is stored on bits 15-31.
-      - Why am I doing it:
-        Because I want to store the "to" date on bits 0-15
+        After left shifting the packedDate by 16 bits, the "from" date is stored on bits 16-31.
 */
         packedDate = packedDate << 16;
 //      pack the "to" date (toy/m/d) into the lower 16 bits of packedDate.
