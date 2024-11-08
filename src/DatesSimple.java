@@ -13,15 +13,22 @@ public class DatesSimple {
         int resetToy = toy - 2000; // adjust the toy to be in range [0, 127]
 //      pack the "from" date (fromy/m/d) into a 16 bits integer
 /*
-      - save variable "resetFromy" (range 0-127, requiring 7 bits, as 2^7 = 128)
+      - Save variable "resetFromy" (range 0-127, requiring 7 bits, as 2^7 = 128)
         into bits 9-15 of packedDate by using (resetFromy & 0x7f) << 9)
-      - save variable "fromm" (range 0-15, requiring 4 bits, as 2^4 = 16)
+      - Save variable "fromm" (range 0-15, requiring 4 bits, as 2^4 = 16)
         into bits 5-8 of packedDate by using (fromm & 0x0f) << 5
-      - save variable "fromd" (range 0-31, requiring 5 bits, as 2^5 = 32)
+      - Save variable "fromd" (range 0-31, requiring 5 bits, as 2^5 = 32)
         into bits 0-4 of packedDate by using (fromd & 0x1f)
 */
         int packedDate = (resetFromy & 0x7f) << 9 | (fromm & 0x0f) << 5 | (fromd & 0x1f);
 //      shift the packedDate to the left 16 bits to be at higher bits
+/*
+      - What happens after this shift:
+        So far the "from" date is stored on bits 0-15 of packeDate.
+        After left shifting the packedDate by 16 bits, the "from" date is stored on bits 15-31.
+      - Why am I doing it:
+        Because I want to store the "to" date on bits 0-15
+*/
         packedDate = packedDate << 16;
 //      pack the "to" date (toy/m/d) into the lower 16 bits of packedDate.
         packedDate = packedDate | (resetToy & 0x7f) << 9 | (tom & 0x0f) << 5 | (tod & 0x1f);
