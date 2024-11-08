@@ -14,23 +14,22 @@ public class DatesSimple {
 //      pack the "from" date (fromy/m/d) into a 16 bits integer
 /*
       - Save variable "resetFromy" (range 0-127, requiring 7 bits, as 2^7 = 128)
-        into bits 9-15 of packedDate by using (resetFromy & 0x7f) << 9)
+        into bits 9-15 of period by using (resetFromy & 0x7f) << 9)
       - Save variable "fromm" (range 0-15, requiring 4 bits, as 2^4 = 16)
-        into bits 5-8 of packedDate by using (fromm & 0x0f) << 5
+        into bits 5-8 of period by using (fromm & 0x0f) << 5
       - Save variable "fromd" (range 0-31, requiring 5 bits, as 2^5 = 32)
-        into bits 0-4 of packedDate by using (fromd & 0x1f)
+        into bits 0-4 of period by using (fromd & 0x1f)
 */
-        int packedDate = (resetFromy & 0x7f) << 9 | (fromm & 0x0f) << 5 | (fromd & 0x1f);
+        period = (resetFromy & 0x7f) << 9 | (fromm & 0x0f) << 5 | (fromd & 0x1f);
 /*
         Because we want to store the "to" date on bits 0-15,
-        and the "from" date is currently occupying those bits in packedDate,
+        and the "from" date is currently occupying those bits in period,
         we need to shift the "from" date to bits 16-31.
-        This is achieved by left-shifting packedDate by 16 bits.
+        This is achieved by left-shifting period by 16 bits.
 */
-        packedDate = packedDate << 16;
-//      pack the "to" date (toy/m/d) into the lower 16 bits of packedDate.
-        packedDate = packedDate | (resetToy & 0x7f) << 9 | (tom & 0x0f) << 5 | (tod & 0x1f);
-        period = packedDate;
+        period = period << 16;
+//      pack the "to" date (toy/m/d) into the lower 16 bits of period.
+        period = period | (resetToy & 0x7f) << 9 | (tom & 0x0f) << 5 | (tod & 0x1f);
         fromy = fromm = fromd = toy = tom = tod = 0;
 
 //      unpack the "from" date
