@@ -1,9 +1,9 @@
 import java.util.Scanner;
 
-public class LeapYear {
+public class DaysCalculator {
     public static void main(String[] args) {
         int year, month;
-        int days;
+        int days = 0;
         Scanner s = new Scanner(System.in);
 
         // Get input of the year
@@ -25,38 +25,18 @@ public class LeapYear {
         } while (month < 1 || month > 12);
         s.close();
 
+        // Count the number of days
         switch (month) {
             // Month with 31 days
-            case 1:
-            case 3:
-            case 5:
-            case 7:
-            case 8:
-            case 10:
-            case 12:
-                days = 31;
-                break;
+            case 1, 3, 5, 7, 8, 10, 12 -> days = 31;
 
             // Month with 30 days
-            case 4:
-            case 6:
-            case 9:
-            case 11:
-                days = 30;
-                break;
+            case 4, 6, 9, 11 -> days = 30;
 
             // February: 28 or 29 days depending on the leap year
-            case 2:
-                if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) {
-                    days = 29; // Leap year
-                } else {
-                    days = 28; // Not a leap year
-                }
-                break;
-
-            default:
-                days = 0;
+            case 2 -> days = (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) ? 29 : 28;
         }
+
         System.out.println("There are " + days + " days in month " + month + " of year " + year + ".");
     }
 }
