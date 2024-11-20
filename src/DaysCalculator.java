@@ -33,7 +33,7 @@ public class DaysCalculator {
             case 4, 6, 9, 11 -> 30;
             // February: 28 or 29 days depending on the leap year
             case 2 -> {
-                boolean isLeapYear = (year % 4 == 0 && year % 100 != 0 || year % 400 == 0);
+                boolean isLeapYear = (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
                 yield isLeapYear ? 29 : 28;
             }
             default -> 0; // code unreachable
