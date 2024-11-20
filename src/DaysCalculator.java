@@ -26,16 +26,18 @@ public class DaysCalculator {
         s.close();
 
         // Count the number of days
-        switch (month) {
+        days = switch (month) {
             // Month with 31 days
-            case 1, 3, 5, 7, 8, 10, 12 -> days = 31;
-
+            case 1, 3, 5, 7, 8, 10, 12 -> 31;
             // Month with 30 days
-            case 4, 6, 9, 11 -> days = 30;
-
+            case 4, 6, 9, 11 -> 30;
             // February: 28 or 29 days depending on the leap year
-            case 2 -> days = (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) ? 29 : 28;
-        }
+            case 2 -> {
+                boolean isLeapYear = (year % 4 == 0 && year % 100 != 0 || year % 400 == 0);
+                yield isLeapYear ? 29 : 28;
+            }
+            default -> 0; // code unreachable
+        };
 
         System.out.println("There are " + days + " days in month " + month + " of year " + year + ".");
     }
