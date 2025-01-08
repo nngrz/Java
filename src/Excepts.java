@@ -30,7 +30,7 @@ class Car {
             throw new Explosion("BOOOOOOM!");
         }
 
-        // Return a random value from 15 to 36 (inclusive)
+        // Return a random value [15, 35]
         int randomFillOfFuel = random.nextInt(35 - 15 + 1) + 15;
         this.fuel += randomFillOfFuel;
         System.out.println("After filling " + fuel);
