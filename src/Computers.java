@@ -6,9 +6,13 @@ public class CalculatingDevice {
     }
     
     // Calculate the sum of arguments and return a string
-    public String calculate(double x, double y) {
+    public String sum(double x, double y) {
         double sum = x + y;
         return name + ": " + x + "+" + y + "=" + sum;
+    }
+
+    public String calculate(double x, double y) {
+        return sum(x, y);
     }
 
     public static void printRes(CalculatingDevice[] a, double x, double y) {
@@ -45,24 +49,25 @@ public class Computer extends Calculator {
     // Calculate the multiplication of arguments and return a string
     public String multiplication(double x, double y) {
         double multiplication = x * y;
-        return x + "*" + y + "=" + multiplication + "; ";
+        return x + "*" + y + "=" + multiplication;
     }
+
     // Calculate the division of arguments and return a string
     public String division(double x, double y) {
-        double division = x / y;
-        return x + "/" + y + "=" + division;
+        // Special case: if y = 0, the division calculation is invalid
+        if (y == 0) {
+            return "Division by zero error";
+        } else {
+            double division = x / y;
+            return x + "/" + y + "=" + division;
+        }
     }
 
     // Get result of addition and subtraction by invoking super.calculate and add the result of multiplication and division
     @Override
     public String calculate(double x, double y) {
         String additionAndSubtraction = super.calculate(x, y);
-        // Special case: if y = 0, the division calculation is invalid
-        if (y == 0) {
-            return additionAndSubtraction + "; " + multiplication(x, y) + "Division by zero error";
-        } else {
-            return additionAndSubtraction + "; " + multiplication(x, y) + division(x, y);
-        }
+        return additionAndSubtraction + "; " + multiplication(x, y) + "; "+ division(x, y);
     }
 }
 
