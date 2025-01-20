@@ -1,4 +1,4 @@
-public class CalculatingDevice {
+class CalculatingDevice {
     protected String name;
 
     CalculatingDevice(String name) {
@@ -21,7 +21,7 @@ public class CalculatingDevice {
     }
 }
 
-public class Calculator extends CalculatingDevice {
+class Calculator extends CalculatingDevice {
     public Calculator(String name) {
         super(name);
     }
@@ -38,7 +38,7 @@ public class Calculator extends CalculatingDevice {
     }
 }
 
-public class Computer extends Calculator {
+class Computer extends Calculator {
     public Computer(String name) {
         super(name);
     }
