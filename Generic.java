@@ -1,4 +1,6 @@
 import java.lang.reflect.Method;
+import java.util.HashSet;
+import java.util.Objects;
 
 class Box<T> {
     private T value;
@@ -67,6 +69,27 @@ class Cat extends Animal {
     }
 }
 
+class Person {
+    String name;
+
+    Person(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Person person = (Person) obj;
+        return Objects.equals(name, person.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
+    }
+}
+
 public class Generic {
     public static void main(String[] args) {
 
@@ -120,7 +143,13 @@ public class Generic {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
 
-    // TODO: composite practice
+        HashSet<Person> set = new HashSet<>();
+
+        set.add(new Person("Tom"));
+
+        System.out.println(set.contains(new Person("Tom")));
+
+        // TODO: composite practice
+    }
 }
